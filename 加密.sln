@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "加密", "加密\加密.vcxproj", "{E53B1321-E0EE-4FF0-BA17-DA9951C6B9E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E53B1321-E0EE-4FF0-BA17-DA9951C6B9E5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E53B1321-E0EE-4FF0-BA17-DA9951C6B9E5}.Debug|Win32.Build.0 = Debug|Win32
+		{E53B1321-E0EE-4FF0-BA17-DA9951C6B9E5}.Release|Win32.ActiveCfg = Release|Win32
+		{E53B1321-E0EE-4FF0-BA17-DA9951C6B9E5}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
