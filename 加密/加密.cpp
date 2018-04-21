@@ -7,6 +7,7 @@
 #define enCryPtion 1
 #define deCode 0
 
+#define key 0x38
 
 #define calcLen1(x) (*((int *)x)*4) 
 #define calcLen2(x) (*((int *)x)/4) 
@@ -17,6 +18,7 @@ void *_decode(void *a, void * b, void * c);
 //a source   b len  c key
 void *_1(void *a, void * b, void * c)
 {
+	/*
 	char * v1 = (char *)a;
 	int v3 = *(int *)b;
 	void *v4 = c;
@@ -27,10 +29,57 @@ void *_1(void *a, void * b, void * c)
 
 	while (v2 < v3)
 	{
-		_xorCore(v1, v4, r);
-		v1++, r++, v2++;
+	_xorCore(v1, v4, r);
+	v1++, r++, v2++;
 	}
 	return vv;
+
+
+	*/
+	__asm
+	{
+		mov eax, [a]//char * v1 = (char *)a;
+			mov dword ptr ds : [ebp - 4], eax
+
+			mov eax, [b]   //int v3 = *(int *)b;
+			mov eax, [eax]
+			mov dword ptr ds : [ebp - 8], eax
+
+			//void *v4 = c;
+			mov eax, [c]
+			mov eax, [eax]
+			mov dword ptr ds : [ebp - 0xc], eax
+
+			mov eax, [ebp - 8]//void *vv = (void *)_VirtualAlloc(v3);
+			push eax
+			call _VirtualAlloc
+			mov dword ptr ds : [ebp - 0x10], eax
+
+			mov eax, [ebp - 0x10]//char *r = (char *)vv;
+			mov dword ptr ds : [ebp - 0x14], eax
+
+			mov dword ptr ds : [ebp - 0x18], 0//int v2 = 0;
+
+		_v1 :
+			mov eax, [ebp - 0x18]
+			mov ebx, [ebp - 8]
+			cmp eax, ebx
+			jge _r
+
+			push dword ptr ds : [ebp - 0x14]
+			push dword ptr ds : [c]
+			push dword ptr ds : [ebp - 4]
+			call _xorCore
+
+			inc dword ptr ds : [ebp - 0x14]
+			inc dword ptr ds : [ebp - 4]
+			inc dword ptr ds : [ebp - 0x18]
+
+			jmp _v1
+		_r :
+		mov eax, [ebp - 0x10]
+
+	}
 }
 //a source b r
 void _2_1_1(void **a, void **b)
@@ -94,6 +143,10 @@ void *_2_2(void *a, void *b)
 //a ->source  b ->len c->falg
 void *_2(void *a, void *b, int c)
 {
+
+
+
+
 	void * v1;
 	if (c == enCryPtion)
 	{
@@ -105,6 +158,33 @@ void *_2(void *a, void *b, int c)
 	{
 		v1 = _2_2(a, b);
 	}
+	/*__asm
+	{
+
+		mov eax, dword ptr ds : [c]
+			cmp eax, enCryPtion
+			je _v1
+			cmp eax, deCode
+			je _v2
+			jmp _r
+
+
+
+
+		_v1 :
+
+
+
+	_v2 :
+
+
+
+
+	_r :
+	   mov eax, [ebp - 4]
+
+	}*/
+
 	return v1;
 }
 
@@ -177,13 +257,13 @@ void * _tmain(void * argc, _TCHAR* argv[])
 
 	char *n1 = "ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!ccc!cc";
 	*v1 = strlen(n1);
-	*v2 = 0x55;
+	*v2 = key;
 	//º”√‹≤‚ ‘
 	vv1 = _encryption(n1, v1, v2);
 
+	//printf("%s\n", (char *)vv1);
 
-
-	*v2_2 = 0x55;
+	*v2_2 = key;
 	*v3 = strlen((char *)vv1);
 	vv2 = _decode(vv1, v3, v2_2);
 

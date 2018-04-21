@@ -32,7 +32,7 @@ nakedStdCall(void) _xorCore(void *v1, void *v2, void *v3)
 }
 //·ÖÅäÄÚ´æ
 //v1 -> size
-LPVOID _VirtualAlloc(DWORD v1)
+LPVOID stdCall _VirtualAlloc(DWORD v1)
 {
 	return VirtualAlloc(NULL, v1, MEM_COMMIT, PAGE_READWRITE);
 }
